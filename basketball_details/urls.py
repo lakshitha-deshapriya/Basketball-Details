@@ -20,4 +20,5 @@ urlpatterns = [
     path('auth/', admin.site.urls),
     path('team/', include('teams.urls')),
     path('', include('user_details.urls')),
+    path('match/', include('match_stat.urls')),
 ]
