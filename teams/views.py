@@ -73,6 +73,33 @@ class TeamDetail(APIView):
             'avgScore': avgScore
         }
         return Response(context, status=status.HTTP_200_OK)
+    
+    def put(self, request, id):
+        authStatus = Validator.validateUser(user=request.user, types=['A'])
+        if authStatus != status.HTTP_200_OK:
+            return Response('Unauthorized', status=authStatus)
+
+        team = Team.objects.filter(id=id).first()
+        if not team:
+            return Response('Invalid Id', status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = TeamSerializer(team, request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, id):
+        authStatus = Validator.validateUser(user=request.user, types=['A'])
+        if authStatus != status.HTTP_200_OK:
+            return Response('Unauthorized', status=authStatus)
+
+        team = Team.objects.filter(id=id).first()
+        if not team:
+            return Response('Invalid Id', status=status.HTTP_400_BAD_REQUEST)
+
+        team.delete()
+        return Response('Successfully deleted', status=status.HTTP_204_NO_CONTENT)
 
     def _getFilteredPlayers(self, players):
         playerAvg = {}
