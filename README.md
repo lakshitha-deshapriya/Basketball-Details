@@ -60,6 +60,10 @@ Authentication is enabled. Therefore when testing with postman, need to specify 
   • GET   : http://127.0.0.1:8000/player/<id>   -> Get player with stats
   • PUT   : http://127.0.0.1:8000/player/<id>   -> Edit player
   • DELETE: http://127.0.0.1:8000/player/<id>   -> Delete player
+  
+• Match Details:
+  • GET   : http://127.0.0.1:8000/match/        -> Get match list
+  • GET   : http://127.0.0.1:8000/match/<id>    -> Get match details
 
 • Team Details:
   • GET   : http://127.0.0.1:8000/team/                         -> Get team list
